@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Perkalian Ceria: belajar perkalian 1–12 untuk anak SD lewat permainan, level petualangan, tantangan harian, dan lencana.">
+<meta name="theme-color" content="#2f80ed">
+<title>PERKALIAN CERIA – Petualangan Dunia Perkalian</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦊%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#e8f4ff;--card:#fff;--tx:#1f2a44;--blue:#2f80ed;--yel:#ffc928;--grn:#27ae60;--org:#ff8a2b;--red:#e5484d;--sh:0 6px 0 rgba(0,0,0,.15);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14213d;--card:#1f3159;--tx:#f4f7ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14213d;--card:#1f3159;--tx:#f4f7ff;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;font-size:20px;min-height:100vh;min-height:100dvh}
+#app{max-width:880px;margin:0 auto;padding:14px}
+h1,h2,h3{margin:.3em 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{background:var(--card);border-radius:30px;padding:6px 14px;box-shadow:var(--sh);font-weight:700}
+.btn{font:inherit;font-weight:800;border:0;border-radius:20px;padding:14px 22px;margin:6px;color:#fff;background:var(--blue);box-shadow:var(--sh);cursor:pointer;min-height:52px;transition:transform .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.btn.y{background:var(--yel);color:#4a3600}.btn.g{background:var(--grn)}.btn.o{background:var(--org)}.btn.r{background:var(--red)}.btn.s{padding:8px 14px;min-height:40px;font-size:16px}
+.btn:disabled{opacity:.5}
+.card{background:var(--card);border-radius:24px;padding:18px;box-shadow:var(--sh);margin:12px 0}
+.hero{text-align:center}
+.hero h1{font-size:clamp(34px,9vw,60px);background:linear-gradient(90deg,var(--blue),var(--org),var(--grn));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mascot{font-size:96px;display:inline-block;animation:bob 2s ease-in-out infinite;cursor:pointer}
+.bubble{display:inline-block;background:var(--yel);color:#4a3600;border-radius:20px;padding:8px 16px;font-weight:700;max-width:92%}
+@keyframes bob{50%{transform:translateY(-14px) rotate(6deg)}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pop{animation:pop .4s}.shake{animation:shake .4s}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.grid2{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.num{font-size:34px;padding:16px 0;margin:0}
+.q{font-size:clamp(44px,13vw,84px);font-weight:900;text-align:center;margin:10px 0}
+.opt{font-size:34px;padding:20px 0;margin:0;width:100%}
+.opt.ok{background:var(--grn)}.opt.bad{background:var(--red)}
+input.ans{font:inherit;font-size:44px;width:100%;max-width:280px;text-align:center;border:4px solid var(--blue);border-radius:20px;padding:10px;background:var(--card);color:var(--tx)}
+.fb{min-height:80px;text-align:center;font-weight:800;font-size:22px}
+.bar{height:16px;border-radius:10px;background:rgba(127,127,127,.25);overflow:hidden}.bar>i{display:block;height:100%;background:var(--grn);transition:width .3s}
+.vis{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.grp{background:rgba(47,128,237,.12);border-radius:14px;padding:6px 8px;font-size:22px;line-height:1.1}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%}td,th{padding:8px;text-align:center;border-bottom:1px solid rgba(127,127,127,.3)}
+.cell{cursor:pointer;font-weight:700}.cell:hover{background:var(--yel);color:#4a3600}
+.lv{font-size:26px;padding:14px 0;margin:0;width:100%}
+.stars{letter-spacing:2px}
+.badge{display:inline-block;margin:6px;padding:10px 14px;border-radius:16px;background:rgba(127,127,127,.2)}
+.badge.on{background:var(--yel);color:#4a3600}
+.center{text-align:center}
+.seg .btn{opacity:.55}.seg .btn.on{opacity:1;outline:4px solid var(--yel)}
+/* ===== Pengembangan ===== */
+:focus-visible{outline:4px solid var(--org);outline-offset:2px}
+.btn:disabled{cursor:not-allowed}
+.btn:hover:not(:disabled){filter:brightness(1.08)}
+.tbl{min-width:540px}.tbl td,.tbl th{padding:6px 4px;font-size:16px}.tbl th{background:rgba(47,128,237,.2)}
+.tbl td.sel{background:var(--org);color:#fff}
+noscript{display:block;padding:20px;text-align:center;font-weight:700}
+@media (max-width:600px){body{font-size:18px}.stack{grid-template-columns:1fr}.btn{padding:12px 16px}.opt{font-size:28px}.mascot{font-size:76px}}
+@media (min-width:900px){#app{padding:24px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript>Aktifkan JavaScript di browser untuk memainkan Perkalian Ceria.</noscript>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+const KEY='perkalianCeria_v1';
+const def={name:'',points:0,stars:0,levels:{},best:{},played:0,right:0,total:0,daily:'',board:[],music:true,sound:true,diff:'sedang'};
+let S=Object.assign({},def);
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign({},def,JSON.parse(r))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ===== Audio ===== */
+let AC=null,musicT=null,mi=0;
+function ctx(){try{if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC}
+function tone(f,d,t='sine',v=.15,when=0){const c=ctx();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.exponentialRampToValueAtTime(.001,c.currentTime+when+d);o.connect(g);g.connect(c.destination);o.start(c.currentTime+when);o.stop(c.currentTime+when+d)}
+function sfx(k){if(!S.sound)return;if(k==='ok'){tone(660,.15,'triangle',.2);tone(880,.2,'triangle',.2,.12);tone(1100,.25,'triangle',.2,.25)}else if(k==='bad'){tone(220,.25,'sawtooth',.12);tone(160,.3,'sawtooth',.12,.2)}else if(k==='win'){[523,659,784,1046].forEach((f,i)=>tone(f,.25,'triangle',.2,i*.15))}else tone(500,.06,'square',.08)}
+const mel=[523,587,659,784,659,587,523,392,440,523,587,523];
+function music(){clearInterval(musicT);musicT=null;if(!S.music)return;musicT=setInterval(()=>{tone(mel[mi++%mel.length],.3,'sine',.05)},420)}
+function speak(t){try{if(!('speechSynthesis' in window))return alert('Suara belum tersedia di perangkat ini.');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function stopSpeak(){try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}}
+function speakEq(a,b){speak(`${a} kali ${b} sama dengan ${a*b}`)}
+document.addEventListener('click',()=>{if(S.music&&!musicT)music()},{once:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(musicT);musicT=null;stopSpeak()}else if(S.music&&AC)music()});
+
+/* ===== Util ===== */
+function rngSeed(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=Math.random;
+function shuffle(a,r=R){for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function stars(n){return '⭐'.repeat(n)+'☆'.repeat(3-n)}
+function today(){return new Date().toISOString().slice(0,10)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+const ITEMS=['🍎','⭐','⚽','🍬','🍌','🎈','🍪','🐟'];
+function vis(a,b,it){const e=it||ITEMS[(a+b)%ITEMS.length];let h='<div class="vis">';for(let i=0;i<a;i++)h+=`<div class="grp">${e.repeat(b)}</div>`;return h+'</div>'}
+function addExpl(a,b){const [x,y]=a<=b?[a,b]:[b,a];return `${a} × ${b} = ${Array(x).fill(y).join(' + ')} = ${a*b}`}
+function render(h){app.innerHTML=h;window.scrollTo(0,0)}
+function header(back=true){return `<div class="top">${back?'<button class="btn s y" onclick="home()">🏠 Menu</button>':'<span></span>'}<span class="pill">⭐ ${S.stars}</span><span class="pill">🏅 ${S.points} poin</span><button class="btn s mbtn" aria-label="Musik dan suara" onclick="toggleMusic()">${S.music?'🎵':'🔇'}</button></div>`}
+function toggleMusic(){S.music=!S.music;S.sound=S.music;save();music();if(S.music)sfx('tap');document.querySelectorAll('.mbtn').forEach(b=>b.textContent=S.music?'🎵':'🔇')}
+let route=()=>home();
+
+/* ===== Home ===== */
+function home(){route=home;stopSpeak();
+render(`${header(false)}<div class="card hero"><h1>PERKALIAN CERIA</h1><div>Petualangan Dunia Perkalian</div>
+<div class="mascot" onclick="sfx('ok');this.classList.add('pop')">🦊</div><br>
+<div class="bubble">${S.name?`Halo, ${esc(S.name)}! Ayo belajar perkalian bersama Kiko!`:'Hai! Aku Kiko. Siapa namamu?'}</div>
+<p><input class="ans" style="font-size:26px" id="nm" maxlength="14" placeholder="Nama panggilan" value="${esc(S.name)}" onchange="S.name=this.value.trim();save();home()"></p>
+<button class="btn g" onclick="needName(()=>modeMenu())">🚀 MULAI BERMAIN</button>
+<button class="btn" onclick="learnList()">📖 BELAJAR PERKALIAN</button>
+<button class="btn o" onclick="needName(daily)">🎯 TANTANGAN HARIAN</button>
+<button class="btn y" onclick="board()">🏆 PAPAN PERINGKAT</button>
+<p>⭐ Total bintang: <b>${S.stars}</b> &nbsp; 🏅 Total poin: <b>${S.points}</b></p>
+<button class="btn s" onclick="tabel()">🔢 Tabel 1–12</button>
+<button class="btn s" onclick="progress()">📈 Perkembangan &amp; Lencana</button>
+<button class="btn s r" onclick="resetAll()">🗑️ Reset Progres</button></div>`)}
+function needName(f){const v=$('#nm');if(v&&v.value.trim()){S.name=v.value.trim();save()}if(!S.name){S.name='Teman';save()}f()}
+function resetAll(){if(confirm('Yakin ingin menghapus semua progres? Ini tidak bisa dibatalkan.')){const m=S.music;S=Object.assign({},def,{music:m});save();home()}}
+
+/* ===== Learn ===== */
+function learnList(){route=learnList;let g='';for(let i=1;i<=12;i++)g+=`<button class="btn num ${['','g','o','y'][i%4]||''}" onclick="learn(${i})">× ${i}</button>`;
+render(`${header()}<div class="card"><h2>📖 Belajar Perkalian</h2><p>Perkalian artinya menjumlahkan angka yang sama berulang kali. Contoh: 3 × 4 artinya 3 kelompok, tiap kelompok berisi 4 benda, jadi 4 + 4 + 4 = 12.</p><div class="grid">${g}</div></div>`)}
+function learn(n,sel){route=()=>learn(n,sel);sel=sel||[n,3];let rows='';for(let b=1;b<=12;b++)rows+=`<tr class="cell" onclick="learn(${n},[${n},${b}])"><td>${n} × ${b}</td><td>=</td><td><b>${n*b}</b></td></tr>`;
+const [a,b]=sel;
+render(`${header()}<div class="card"><button class="btn s" onclick="learnList()">⬅ Pilih angka</button><h2>Perkalian ${n}</h2>
+<p>Ketuk satu baris untuk melihat gambarnya.</p><div class="grid2 stack"><div class="scroll"><table>${rows}</table></div>
+<div class="center"><h3>${a} × ${b} = ${a*b}</h3>${vis(a,b)}<p>${a} kelompok, tiap kelompok ${b} benda.<br>${addExpl(a,b)}</p>
+<button class="btn s g" onclick="speakEq(${a},${b})">🔊 Dengarkan</button></div></div>
+<div class="center">${n>1?`<button class="btn s" onclick="learn(${n-1})">⬅ ${n-1}</button>`:''}${n<12?`<button class="btn s" onclick="learn(${n+1})">${n+1} ➡</button>`:''}
+<button class="btn s o" onclick="startGame({mode:'tebak',min:1,max:12,fixed:n,count:10})">✏️ Latihan ×${n}</button></div></div>`)}
+
+/* ===== Tabel 1-12 ===== */
+function tabel(s){route=()=>tabel(s);let h='<tr><th>×</th>'+Array.from({length:12},(_,j)=>`<th>${j+1}</th>`).join('')+'</tr>';
+for(let i=1;i<=12;i++){h+=`<tr><th>${i}</th>`;for(let j=1;j<=12;j++)h+=`<td class="cell${s&&s[0]===i&&s[1]===j?' sel':''}" onclick="tabel([${i},${j}])">${i*j}</td>`;h+='</tr>'}
+render(`${header()}<div class="card center"><h2>🔢 Tabel Perkalian 1–12</h2><p>Ketuk satu angka untuk melihat gambarnya.</p>${s?`<h3>${s[0]} × ${s[1]} = ${s[0]*s[1]}</h3>${vis(s[0],s[1])}<p>${addExpl(s[0],s[1])}</p><button class="btn s g" onclick="speakEq(${s[0]},${s[1]})">🔊 Dengarkan</button>`:''}<div class="scroll"><table class="tbl">${h}</table></div></div>`)}
+
+/* ===== Mode menu ===== */
+let sel={diff:S.diff||'sedang'};
+const DIFF={mudah:[5,'Mudah (1–5)'],sedang:[10,'Sedang (1–10)'],sulit:[12,'Sulit (1–12)']};
+function modeMenu(){route=modeMenu;const seg=Object.keys(DIFF).map(k=>`<button class="btn ${sel.diff===k?'on':''} ${k==='mudah'?'g':k==='sedang'?'o':'r'}" onclick="sel.diff='${k}';S.diff='${k}';save();modeMenu()">${DIFF[k][1]}</button>`).join('');
+render(`${header()}<div class="card center"><h2>Pilih Tingkat Kesulitan</h2><div class="seg">${seg}</div></div>
+<div class="card center"><h2>Pilih Permainan</h2>
+<button class="btn g" onclick="go('tebak')">🎯 Tebak Hasil</button>
+<button class="btn" onclick="go('isi')">⌨️ Isi Jawaban</button>
+<button class="btn o" onclick="go('waktu')">⏱️ Tantangan Waktu</button>
+<button class="btn y" onclick="levels()">🗺️ Petualangan (10 Level)</button></div>`)}
+function go(m){const mx=DIFF[sel.diff][0];startGame({mode:m,min:1,max:mx,hard:sel.diff==='sulit',count:m==='waktu'?0:10,time:m==='waktu'?60:0})}
+
+/* ===== Levels ===== */
+function levels(){route=levels;let g='';for(let i=1;i<=10;i++){const open=i===1||S.levels[i-1]>0,st=S.levels[i]||0;g+=`<button class="btn lv ${open?'g':''}" ${open?'':'disabled'} onclick="startGame(lvCfg(${i}))">${open?i:'🔒'}<br><small class="stars">${open?stars(st):'—'}</small></button>`}
+render(`${header()}<div class="card center"><h2>🗺️ Petualangan Perkalian</h2><p>Jawab minimal 7 dari 10 soal dengan benar untuk membuka level berikutnya!</p><div class="grid">${g}</div></div>`)}
+function lvCfg(l){return{mode:'level',level:l,min:1,max:Math.min(12,l+2),hard:l>=7,count:10,type:l>=6?'isi':'tebak'}}
+
+/* ===== Daily ===== */
+function daily(){const done=S.daily===today();
+if(done){render(`${header()}<div class="card center"><h2>🎯 Tantangan Harian</h2><div class="mascot">😴</div><p>Kamu sudah menyelesaikan tantangan hari ini. Kembali lagi besok untuk bonus 30 poin!</p><button class="btn g" onclick="modeMenu()">Main Permainan Lain</button></div>`);return}
+const seed=+today().replace(/-/g,'');startGame({mode:'daily',min:1,max:10,hard:true,count:10,seed})}
+
+/* ===== Game engine ===== */
+let G=null;
+function makeGen(c){const r=c.seed?rngSeed(c.seed):R,used=new Set();
+return function(){const pool=c.fixed?c.max:c.max*c.max;if(used.size>=pool)used.clear();let a,b,k,t=0;
+do{if(c.fixed){a=c.fixed;b=1+Math.floor(r()*12)}else{a=1+Math.floor(r()*c.max);b=1+Math.floor(r()*c.max)}k=a+'x'+b;t++}while(used.has(k)&&t<80);used.add(k);
+if(c.hard&&r()<.3&&a>1)return{text:`${a} × ? = ${a*b}`,ans:b,a,b,ex:`${a} × ${b} = ${a*b}, jadi yang hilang adalah ${b}. ${addExpl(a,b)}`};
+return{text:`${a} × ${b} = ?`,ans:a*b,a,b,ex:addExpl(a,b)}}}
+function options(q){const s=new Set([q.ans]),c=shuffle([q.ans+q.a,q.ans-q.a,q.ans+q.b,q.ans-q.b,q.ans+1,q.ans-1,q.ans+2,q.ans+10,q.ans-10]);for(const x of c){if(s.size>=4)break;if(x>0)s.add(x)}let k=3;while(s.size<4)s.add(q.ans+k++);return shuffle([...s])}
+function startGame(c){G=Object.assign({i:0,right:0,wrong:0,pts:0,lock:false,done:false,gen:makeGen(c),timeLeft:c.time||0,c},{});if(c.mode==='daily'||c.mode==='level'||true)G.type=c.type||(c.mode==='isi'?'isi':'tebak');
+route=()=>{};nextQ();
+if(c.time){clearInterval(G.timer);G.timer=setInterval(()=>{G.timeLeft--;const t=$('#tm');if(t)t.textContent='⏱️ '+G.timeLeft;if(G.timeLeft<=0){clearInterval(G.timer);finish()}},1000)}}
+function nextQ(){if(!G||G.done)return;const c=G.c;if(c.count&&G.i>=c.count)return finish();G.q=G.gen();G.i++;G.lock=false;
+const tot=c.count||'∞';
+const body=G.type==='isi'?`<input class="ans" id="in" type="number" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')check()"><p><button class="btn g" onclick="check()">✅ Periksa Jawaban</button></p>`
+:`<div class="grid2">${options(G.q).map(o=>`<button class="btn opt" onclick="pick(${o},this)">${o}</button>`).join('')}</div>`;
+render(`<div class="top"><button class="btn s y" onclick="quit()">🏠 Keluar</button><span class="pill">Soal ${G.i}/${tot}</span><span class="pill" id="tm">${c.time?'⏱️ '+G.timeLeft:'🏅 '+G.pts}</span><button class="btn s" onclick="speak(G.q.text.replace('×','kali').replace('?','berapa'))">🔊</button></div>
+${c.count?`<div class="bar"><i style="width:${(G.i-1)/c.count*100}%"></i></div>`:''}
+<div class="card center">${c.mode==='level'?`<b>Level ${c.level}</b>`:''}<div class="q" id="qq">${G.q.text}</div>${body}<div class="fb" id="fb" aria-live="polite"></div></div>`);
+if(G.type==='isi')$('#in').focus()}
+function quit(){if(confirm('Keluar dari permainan?')){if(G){G.done=true;clearInterval(G.timer)}stopSpeak();home()}}
+function pick(v,btn){if(G.lock)return;answer(v,btn)}
+function check(){if(G.lock)return;const v=$('#in').value;if(v==='')return;answer(+v,null)}
+function answer(v,btn){G.lock=true;const q=G.q,ok=v===q.ans,fb=$('#fb'),qq=$('#qq');
+if(ok){G.right++;G.pts+=10;S.points+=10;sfx('ok');fb.innerHTML='🎉 Benar! +10 poin';fb.style.color='var(--grn)';qq.classList.add('pop');if(btn)btn.classList.add('ok');}
+else{G.wrong++;sfx('bad');fb.innerHTML=`❌ Belum tepat. Jawaban yang benar: <b>${q.ans}</b><br><small>${q.ex}</small>`;fb.style.color='var(--red)';qq.classList.add('shake');if(btn)btn.classList.add('bad');document.querySelectorAll('.opt').forEach(b=>{if(+b.textContent===q.ans)b.classList.add('ok')})}
+save();
+const tm=G.c.time;const wait=ok?900:(tm?1300:0);
+if(wait)setTimeout(()=>{if(G&&G.q===q)nextQ()},wait);
+else{fb.insertAdjacentHTML('beforeend','<br><button class="btn" id="nx" onclick="nextQ()">Lanjut ➡</button>');const nx=$('#nx');if(nx)nx.focus()}}
+function finish(){if(G.done)return;G.done=true;clearInterval(G.timer);const c=G.c,tot=G.right+G.wrong,score=tot?Math.round(G.right/tot*100):0;
+let st=score>=90?3:score>=75?2:score>=60?1:0;if(c.time)st=G.right>=20?3:G.right>=12?2:G.right>=6?1:0;
+let bonus='',passed=true;
+if(c.mode==='level'){passed=G.right>=7;if(passed){G.pts+=50;S.points+=50;bonus='<p>🎁 Level selesai! +50 poin</p>';const old=S.levels[c.level]||0;S.levels[c.level]=Math.max(old,Math.max(1,st))}}
+if(c.mode==='daily'){S.daily=today();G.pts+=30;S.points+=30;bonus='<p>🎁 Bonus harian +30 poin</p>'}
+S.stars+=st;if(score===100&&!c.time)S.perfect=1;S.played++;S.right+=G.right;S.total+=tot;
+const bk=c.mode==='level'?'level'+c.level:c.mode;S.best[bk]=Math.max(S.best[bk]||0,c.time?G.right:score);
+S.board.push({n:S.name||'Teman',p:G.pts,m:bk,d:today()});S.board.sort((a,b)=>b.p-a.p);S.board=S.board.slice(0,10);save();
+const msg=score>=90?'Luar biasa! Kamu adalah Master Perkalian!':score>=75?'Hebat! Kemampuan perkalianmu semakin bagus!':score>=60?'Bagus! Terus berlatih agar semakin pintar!':'Jangan menyerah! Ayo coba lagi!';
+const nb=checkBadges();sfx(score>=60?'win':'bad');
+const again=c.mode==='daily'?'daily()':`startGame(${JSON.stringify(Object.assign({},c)).replace(/"/g,'&quot;')})`;
+render(`${header()}<div class="card center"><h2>🏁 Hasil Permainan</h2><div class="mascot">${score>=75?'🥳':score>=60?'😊':'💪'}</div><div class="bubble">${msg}</div>
+<h1 class="stars">${stars(st)}</h1>
+<div class="grid2" style="text-align:left"><div>📝 Soal dikerjakan: <b>${tot}</b></div><div>✅ Benar: <b>${G.right}</b></div><div>❌ Salah: <b>${G.wrong}</b></div><div>💯 Nilai akhir: <b>${score}</b></div><div>🏅 Poin diperoleh: <b>${G.pts}</b></div><div>⭐ Bintang: <b>${st}</b></div></div>
+${bonus}${c.mode==='level'?(passed?'<p>✅ Level berikutnya terbuka!</p>':'<p>Butuh minimal 7 benar untuk lanjut. Coba lagi ya!</p>'):''}${nb}
+<p>${c.mode==='daily'?'':`<button class="btn g" onclick="${again}">🔄 Main Lagi</button>`}${c.mode==='level'?`<button class="btn" onclick="levels()">🗺️ Peta Level</button>`:''}<button class="btn y" onclick="home()">🏠 Menu Utama</button></p></div>`)}
+
+/* ===== Badges & Progress ===== */
+const BADGES=[['fs','🚀','Langkah Pertama','Selesaikan 1 permainan',()=>S.played>=1],['bs','⭐','Bintang Perkalian','Kumpulkan 10 bintang',()=>S.stars>=10],['pf','💯','Nilai Sempurna','Raih nilai 100 pada satu permainan',()=>!!S.perfect],['sp','⚡','Kilat Perkalian','Benar 20 soal di Tantangan Waktu',()=>(S.best.waktu||0)>=20],['rj','📚','Rajin Berlatih','Mainkan 10 permainan',()=>S.played>=10],['mm','🧠','Master Matematika','Selesaikan Level 10',()=>S.levels[10]>0],['jp','🏆','Juara Perkalian','Raih 1000 poin',()=>S.points>=1000]];
+function checkBadges(){S.badges=S.badges||{};let n='';BADGES.forEach(b=>{if(b[4]()&&!S.badges[b[0]]){S.badges[b[0]]=1;n+=`<p class="badge on">${b[1]} Lencana baru: ${b[2]}!</p>`}});save();return n}
+function progress(){route=progress;const acc=S.total?Math.round(S.right/S.total*100):0;const done=Object.keys(S.levels).filter(k=>S.levels[k]>0).length;
+render(`${header()}<div class="card center"><h2>📈 Perkembangan Belajar</h2><p>Permainan dimainkan: <b>${S.played}</b><br>Soal benar: <b>${S.right}</b> dari <b>${S.total}</b></p>
+<div class="bar"><i style="width:${acc}%"></i></div><p>Ketepatan jawaban: <b>${acc}%</b><br>Level petualangan selesai: <b>${done}/10</b></p>
+<p>Skor tertinggi: Tebak ${S.best.tebak||0} · Isi ${S.best.isi||0} · Waktu ${S.best.waktu||0} benar · Harian ${S.best.daily||0}</p>
+<h3>Lencana</h3>${BADGES.map(b=>`<div class="badge ${(S.badges||{})[b[0]]?'on':''}">${b[1]} <b>${b[2]}</b><br><small>${b[3]}</small></div>`).join('')}</div>`)}
+
+/* ===== Leaderboard ===== */
+const MN={tebak:'Tebak Hasil',isi:'Isi Jawaban',waktu:'Waktu',daily:'Harian'};
+function board(){route=board;const r=S.board.length?S.board.map((e,i)=>`<tr><td>${['🥇','🥈','🥉'][i]||i+1}</td><td>${esc(e.n)}</td><td>${e.p}</td><td><small>${MN[e.m]||e.m.replace('level','Level ')}</small></td></tr>`).join(''):'<tr><td colspan="4">Belum ada skor. Ayo bermain!</td></tr>';
+render(`${header()}<div class="card center"><h2>🏆 Papan Peringkat</h2><p>10 skor terbaik di perangkat ini</p><table><tr><th>#</th><th>Nama</th><th>Poin</th><th>Mode</th></tr>${r}</table><button class="btn g" onclick="modeMenu()">Main Sekarang</button></div>`)}
+
+home();
+</script>
+</body>
+</html>
